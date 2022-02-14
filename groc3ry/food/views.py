@@ -2,53 +2,61 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status, mixins, generics
 
-from food.models import Item, Ingredient
-from .serializers import ItemSerializer, IngredientSerializer
+from food.models import Ingredient, Recipe, RecipeIngredient, MealPlan, ShoppingList
+from .serializers import (
+    IngredientSerializer,
+    RecipeSerializer,
+    RecipeIngredientSerializer,
+    MealPlanSerializer,
+    ShoppingListSerializer,
+)
 
 
-class IngredientViewSet(APIView):
-    """CRUD functionality for Ingredients"""
-
-    def get(self, request, format=None):
-        ingredients = Ingredient.objects.all()
-        serializer = IngredientSerializer(ingredients, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = IngredientSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class IngredientList(
-    mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
-):
+class IngredientList(generics.ListCreateAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-
-class IngredientDetail(
-    mixins.RetrieveModelMixin,
-    mixins.UpdateModelMixin,
-    mixins.DestroyModelMixin,
-    generics.GenericAPIView,
-):
+class IngredientDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
+class RecipeList(generics.ListCreateAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
 
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+
+class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipeSerializer
+
+
+class RecipeIngredientList(generics.ListCreateAPIView):
+    queryset = RecipeIngredient.objects.all()
+    serializer_class = RecipeIngredientSerializer
+
+
+class RecipeIngredientDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RecipeIngredient.objects.all()
+    serializer_class = RecipeIngredientSerializer
+
+
+class ShoppingListList(generics.ListCreateAPIView):
+    queryset = ShoppingList.objects.all()
+    serializer_class = ShoppingListSerializer
+
+
+class ShoppingListDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ShoppingList.objects.all()
+    serializer_class = ShoppingListSerializer
+
+
+class MealPlanList(generics.ListCreateAPIView):
+    queryset = MealPlan.objects.all()
+    serializer_class = MealPlanSerializer
+
+
+class MealPlanDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MealPlan.objects.all()
+    serializer_class = MealPlanSerializer
