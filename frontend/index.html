@@ -6,15 +6,71 @@
     <title>Groc3ry</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='static/css/styles.css'>
-    <script src='static/js/index.js'></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Groc3ry Lists</h1>
-    <script>
-
+    <div class="container">
+        <div id="container-toggle">
+            <div class="flex-wrapper">
+                <button class="btn btn-secondary btn-toggle" onclick="toggleMealplan()"">Meal Plans</button>
+                <div style="flex: 1"></div>
+                <button class="btn btn-secondary btn-toggle" onclick="toggleRecipe()"">Recipes</button>
+                <div style="flex: 1"></div>
+                <button class="btn btn-secondary btn-toggle" onclick="toggleIngredient()"">Ingredients</button>
+            </div>
+        </div>
+        <div id="container-mealplan" class="container-item">
+            <div id="mealplan-form-wrapper">
+                <form id="form-mealplan">
+                    <div class="flex-wrapper">
+                        <div style="flex: 6">
+                            <input id="mealplan-name" class="form-control" type="text" name="name" placeholder="Add mealplan">
+                        </div>
+                        <div style="flex: 1">
+                            <input id="mealplan-submit" class="btn" type="submit">
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div id="mealplan-list-wrapper"></div>
+        </div>
         
-    </script>
+        <div id="container-recipe" class="container-item" style="display:none">
+            <div id="recipe-form-wrapper">
+                <form id="form-recipe">
+                    <div class="flex-wrapper">
+                        <div style="flex: 6">
+                            <input id="recipe-name" class="form-control" type="text" name="name" placeholder="Add recipe">
+                        </div>
+                        <div style="flex: 1">
+                            <input id="recipe-submit" class="btn" type="submit">
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div id="recipe-list-wrapper"></div>
+        </div>
+
+        <div id="container-ingredient" class="container-item" style="display:none">
+            <div id="ingredient-form-wrapper">
+                <form id="form-ingredient" onsubmit="event.preventDefault();">
+                    <div class="flex-wrapper">
+                        <div style="flex: 6">
+                            <input id="ingredient-name" class="form-control" type="text" name="name" placeholder="Add ingredient">
+                        </div>
+                        <div style="flex: 1">
+                            <input id="ingredient-submit" class="btn" type="submit">
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+            <div id="ingredient-list-wrapper"></div>
+        </div>
+    </div>
+    <script src='static/js/index.js'></script>
 </body>
 </html>
